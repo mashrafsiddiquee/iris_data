@@ -1,6 +1,7 @@
 # @author Ashraf
 # This code downloads data from the iris site
 # Current configuration downloads all data of ZH network except the SM series (+SM125).
+# Current configuration downloads all data of the month of April, 2010.
 # To change the timing, change the starting date in line 69 and the number of days in line 72
 
 import datetime
