@@ -2,7 +2,7 @@
 # This code downloads data from the iris site
 # Current configuration downloads all data of ZH network except the SM series (+SM125).
 # Current configuration downloads all data of the month of April, 2010.
-# To change the timing, change the starting date in the function date_init() and number_of_days()
+# To change the timing, change the starting date in the function get_initial_date() and get_number_of_days()
 # To change network and chanel, edit the functions get_network() and get_chanel()
 # To change the station list, edit the function get_stations()
 # Recommended version of Python is 2.7.x
@@ -13,12 +13,12 @@ import wget
 import os
 import sys
 
-file = open("LOGFILE_SM.txt","w")
+file = open("LOGFILE.txt","w")
 
-def date_init():
+def get_initial_date():
     return datetime.datetime(2010, 4, 1)
 
-def number_of_days():
+def get_number_of_days():
     return 30
 
 def get_network():
@@ -90,8 +90,8 @@ chanel = get_chanel()
 success_count = 0
 failure_count = 0
 for station in stations:
-    date = date_init()
-    for i in range(1, number_of_days() + 1):
+    date = get_initial_date()
+    for i in range(1, get_number_of_days() + 1):
         curr_result = download(network, station, chanel, date)
         if curr_result == 1:
             success_count += 1
