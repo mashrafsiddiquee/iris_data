@@ -2,7 +2,7 @@
 # This code downloads data from the iris site
 # Current configuration downloads all data of ZH network except the SM series (+SM125).
 # Current configuration downloads all data of the month of April, 2010.
-# To change the timing, change the starting date in line 69 and the number of days in line 72
+# To change the timing, change the starting date in the function date_init() and number_of_days()
 
 import datetime
 import ssl
@@ -11,6 +11,12 @@ import os
 import sys
 
 file = open("LOGFILE_SM.txt","w")
+
+def date_init():
+    return datetime.datetime(2010, 4, 1)
+
+def number_of_days():
+    return 30
 
 def url_builder(network, station, chanel, date):
 
@@ -71,8 +77,8 @@ chanel = 'EHZ'
 success_count = 0
 failure_count = 0
 for station in stations:
-    date = datetime.datetime(2010, 4, 1)
-    for i in range(1, 31):
+    date = date_init()
+    for i in range(1, number_of_days() + 1):
         curr_result = download(network, station, chanel, date)
         if curr_result == 1:
             success_count += 1
