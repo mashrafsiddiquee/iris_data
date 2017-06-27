@@ -1,9 +1,20 @@
+# @author Ashraf
+# This python code takes earthquake events catalog and station info from file and
+# prints nearest station for each event based on latitude and longitude.
+# For the events (csv-text) file, make sure lat and long values are in column 2 and 3.
+# For the stations (csv-text) file, make sure station name, lat and long values are in column 1, 2, 3
+# Place the files in current directory and update the values of event_file_name and station_file_name before running
+
+
 from geopy.distance import vincenty
 
-event_file = open("89_earthquakes.csv","r")
+event_file_name = "89_earthquakes.csv"
+station_file_name = "station_info.csv"
+
+event_file = open(event_file_name,"r")
 events = event_file.readlines()
 
-station_file = open("station_info.csv","r")
+station_file = open(station_file_name,"r")
 stations = station_file.readlines()
 
 event_row_one = True
@@ -30,5 +41,5 @@ for event in events:
             min_distance = distance
             nearest_station = station[0]
 
-    # print("For event " + event[0] + ", Nearest station: " + nearest_station + ", Distance: " + `min_distance` + " miles.")
-    print(nearest_station)
+    print("For event " + event[0] + ", Nearest station: " + nearest_station + ", Distance: " + `min_distance` + " miles.")
+    # print(nearest_station)
