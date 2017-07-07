@@ -13,7 +13,7 @@ import wget
 import os
 import sys
 
-file = open("LOGFILE.txt","w")
+file = open("LOGFILE.txt", "w")
 
 def get_initial_date():
     return datetime.datetime(2010, 4, 1)
@@ -82,26 +82,29 @@ def download(network, station, chanel, date):
 
     return result
 
-ssl._create_default_https_context = ssl._create_unverified_context          # This line is to bypass the certificate verification of the SSL.
+def main():
+    ssl._create_default_https_context = ssl._create_unverified_context          # This line is to bypass the certificate verification of the SSL.
 
-stations = get_stations()
-network = get_network()
-chanel = get_chanel()
-success_count = 0
-failure_count = 0
-for station in stations:
-    date = get_initial_date()
-    for i in range(1, get_number_of_days() + 1):
-        curr_result = download(network, station, chanel, date)
-        if curr_result == 1:
-            success_count += 1
-        else:
-            failure_count += 1
-        date += datetime.timedelta(days=1)
+    stations = get_stations()
+    network = get_network()
+    chanel = get_chanel()
+    success_count = 0
+    failure_count = 0
+    for station in stations:
+        date = get_initial_date()
+        for i in range(1, get_number_of_days() + 1):
+            curr_result = download(network, station, chanel, date)
+            if curr_result == 1:
+                success_count += 1
+            else:
+                failure_count += 1
+            date += datetime.timedelta(days=1)
 
-print_str = "TOTAL SUCCESS: " + `success_count` + "\n" + "TOTAL FAILURE: " + `failure_count` + "\n"
-print(print_str)
-print("DONE!!!")
-file.write(print_str)
-file.write("DONE!!!")
-file.close()
+    print_str = "TOTAL SUCCESS: " + `success_count` + "\n" + "TOTAL FAILURE: " + `failure_count` + "\n"
+    print(print_str)
+    print("DONE!!!")
+    file.write(print_str)
+    file.write("DONE!!!")
+    file.close()
+
+if __name__ == "__main__" : main()
